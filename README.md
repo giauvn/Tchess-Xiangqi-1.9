@@ -1,6 +1,7 @@
 ## TCHESS
 TCHESS is a cross-platform Chinese chess (Xiangqi) GUI that supports both UCI and UCCI protocol engines. It features:
 
+* Multilingual Tchess, featuring Chinese, English, and Vietnamese.
 * Engine loading
 * Gameplay / Player vs Engine
 * Analysis mode
