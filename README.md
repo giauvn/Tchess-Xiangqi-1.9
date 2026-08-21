@@ -9,13 +9,13 @@ TCHESS is a cross-platform Chinese chess (Xiangqi) GUI that supports both UCI an
 * Opening book
 
 For usage instructions, please refer to MANUAL.md. Visit [Release](https://github.com/sojourners/public-Xiangqi/releases) to download the latest version.
-## System Requirements and Dependencies
+### System Requirements and Dependencies
 
 * JDK 21
 * JavaFX 23
 
-## Community & Feedback
-QQ Group: 1094058444
+### Community & Feedback
+### QQ Group: 1094058444
 ------------------------------
-You can view the multilingual version here :
+You can view the multilingual version here : https://github.com/giauvn/Tchess-Xiangqi-1.9
 
