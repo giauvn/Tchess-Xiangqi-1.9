@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="borderPane" minHeight="0.0" minWidth="0.0" prefHeight="712.0" prefWidth="1169.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sojourners.chess.controller.Controller">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="%menubar.file">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#exit" text="%menuitem.exit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menubar.position">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#newButtonClick" text="%menuitemposition.new" />
+                        <MenuItem mnemonicParsing="false" onAction="#editChessBoardClick" text="%menuitemposition.edit" />
+                        <MenuItem mnemonicParsing="false" onAction="#copyButtonClick" text="%menuitemposition.copyfen" />
+                        <MenuItem mnemonicParsing="false" onAction="#pasteButtonClick" text="%menuitemposition.pastefen" />
+                        <MenuItem mnemonicParsing="false" onAction="#copyImageMenuClick" text="%menuitemposition.copyimage" />
+                        <MenuItem mnemonicParsing="false" onAction="#pasteImageMenuClick" text="%menuitemposition.pasteimage" />
+                        <MenuItem mnemonicParsing="false" onAction="#importImageMenuClick" text="%menuitemposition.importimage" />
+                        <MenuItem mnemonicParsing="false" onAction="#exportImageMenuClick" text="%menuitemposition.exportimage" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menubar.gamerecord">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#newButtonClick" text="%menuitemrecord.new" />
+                        <MenuItem mnemonicParsing="false" onAction="#openChessManualFile" text="%menuitemrecord.open" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveChessManualFile" text="%menuitemrecord.save" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveAsChessManualFile" text="%menuitemrecord.saveas" />
+                        <CheckMenuItem fx:id="menuOfChessNotation" mnemonicParsing="false" text="%menuitemrecord.manager" />
+                        <CheckMenuItem fx:id="menuOfShowTactic" mnemonicParsing="false" onAction="#menuOfShowTacticClick" text="%menuitemrecord.showmove" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menubar.openbook">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#bookSettingButtonClick" text="%menuitemopenbook.setting" />
+                        <MenuItem mnemonicParsing="false" onAction="#localBookManageButtonClick" text="%menuitemopenbook.manager" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menubar.engine">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#engineManageClick" text="%menuitemengine.manager" />
+                        <MenuItem mnemonicParsing="false" onAction="#timeSettingButtonClick" text="%menuitemengine.timesetting" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menubar.connection">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#linkSettingClick" text="%menuitemconnect.setting" />
+                        <CheckMenuItem fx:id="menuOfLinkBackMode" mnemonicParsing="false" onAction="#linkBackModeChecked" text="%menuitemconnect.background" />
+                        <CheckMenuItem fx:id="menuOfLinkAnimation" mnemonicParsing="false" onAction="#linkAnimationChecked" text="%menuitemconnect.enableconfir" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menubar.settings">
+                    <items>
+                        <CheckMenuItem fx:id="menuOfStepTip" mnemonicParsing="false" onAction="#stepTipChecked" text="%menuitemsettings.movehint" />
+                        <CheckMenuItem fx:id="menuOfStepSound" mnemonicParsing="false" onAction="#stepSoundClick" text="%menuitemsettings.movesound" />
+                        <CheckMenuItem fx:id="menuOfShowNumber" mnemonicParsing="false" onAction="#showNumberClick" text="%menuitemsettings.showline" />
+                        <CheckMenuItem fx:id="menuOfTopWindow" mnemonicParsing="false" onAction="#topWindowClick" text="%menuitemsettings.ontop" />
+                        <CheckMenuItem fx:id="menuOfShowStatus" mnemonicParsing="false" onAction="#showStatusBarClick" text="%menuitemsettings.showstatusbar" />
+                        <Menu mnemonicParsing="false" text="%menuitemsettings.boardstyle">
+                            <items>
+                                <RadioMenuItem fx:id="menuOfDefaultBoard" mnemonicParsing="false" onAction="#boardStyleSelected" text="%menuitemsettings.default">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="boardStyle1" />
+                                    </toggleGroup>
+                                </RadioMenuItem>
+                                <RadioMenuItem fx:id="menuOfCustomBoard" mnemonicParsing="false" onAction="#boardStyleSelected" text="%menuitemsettings.redblack" toggleGroup="$boardStyle1" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="%menuitemsettings.boardsize">
+                            <items>
+                                <RadioMenuItem fx:id="menuOfSmallBoard" mnemonicParsing="false" onAction="#boardSizeSelected" text="%menuitemsettings.small">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="boardStyle" />
+                                    </toggleGroup>
+                                </RadioMenuItem>
+                                <RadioMenuItem fx:id="menuOfMiddleBoard" mnemonicParsing="false" onAction="#boardSizeSelected" text="%menuitemsettings.medium" toggleGroup="$boardStyle" />
+                                <RadioMenuItem fx:id="menuOfBigBoard" mnemonicParsing="false" onAction="#boardSizeSelected" text="%menuitemsettings.large" toggleGroup="$boardStyle" />
+                                <RadioMenuItem fx:id="menuOfLargeBoard" mnemonicParsing="false" onAction="#boardSizeSelected" text="%menuitemsettings.extra" toggleGroup="$boardStyle" />
+                                <RadioMenuItem fx:id="menuOfAutoFitBoard" mnemonicParsing="false" onAction="#boardSizeSelected" text="%menuitemsettings.autofit" toggleGroup="$boardStyle" />
+                            </items>
+                        </Menu>
+                        <MenuItem mnemonicParsing="false" onAction="#colorSettingClick" text="%menuitemsettings.theme" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menubar.help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#homeClick" text="%menuitemhelp.home" />
+                        <MenuItem mnemonicParsing="false" onAction="#instructionClick" text="%menuitemhelp.guide" />
+                        <MenuItem mnemonicParsing="false" onAction="#upgradeClick" text="%menuitemhelp.update" />
+                        <MenuItem mnemonicParsing="false" onAction="#aboutClick" text="%menuitemhelp.about" />
+                    </items>
+                </Menu>
+                <!--thêm menu thay đổi ngôn ngữ -->
+                <Menu text="%menu.language">
+                    <items>
+                        <MenuItem text="%menu.lang.en" onAction="#onSelectEnglish" />
+						<MenuItem text="%menu.lang.vi" onAction="#onSelectVietnamese"/>
+                        <MenuItem text="%menu.lang.zh" onAction="#onSelectChinese" />
+                    </items>
+                </Menu>
+                <!-- kết thúc của menu thay đổi ngôn ngữ -->
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <BorderPane BorderPane.alignment="CENTER">
+            <top>
+                <ToolBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" BorderPane.alignment="CENTER">
+                    <items>
+                        <Button fx:id="newButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#newButtonClick" style="-fx-background-image: url('/image/file-plus.png');" stylesheets="@../style/app.css" text="%toolbarbutton.text">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Button fx:id="copyButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#copyButtonClick" style="-fx-background-image: url('/image/copy.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Button fx:id="pasteButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#pasteButtonClick" style="-fx-background-image: url('/image/paste.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Button fx:id="openManualButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openChessManualFile" style="-fx-background-image: url('/image/open.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Button fx:id="saveManualButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveChessManualFile" style="-fx-background-image: url('/image/save.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Button fx:id="regretButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regretButtonClick" style="-fx-background-image: url('/image/back.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Button fx:id="reverseButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#reverseButtonClick" style="-fx-background-image: url('/image/reverse.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Button fx:id="blackButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#blackButtonClick" style="-fx-background-image: url('/image/robotblack.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Button fx:id="redButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#redButtonClick" style="-fx-background-image: url('/image/robotred.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Button fx:id="analysisButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#analysisButtonClick" style="-fx-background-image: url('/image/lightbulb.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Button fx:id="immediateButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#immediateButtonClick" style="-fx-background-image: url('/image/goim.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Button fx:id="changeTacticButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeTacticButtonClick" style="-fx-background-image: url('/image/bian.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Button fx:id="bookSwitchButton" contentDisplay="GRAPHIC_ONLY" layoutX="254.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#bookSwitchButtonClick" style="-fx-background-image: url('/image/cloud.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <ComboBox fx:id="linkComboBox" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="89.0" stylesheets="@../style/combobox.css" />
+                        <Button fx:id="linkButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#linkButtonClick" style="-fx-background-image: url('/image/link.png');" stylesheets="@../style/app.css" text="Button">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Button>
+                    </items>
+                </ToolBar>
+            </top>
+            <center>
+                <SplitPane fx:id="splitPane" dividerPositions="0.6416122004357299" stylesheets="@../style/split-pane.css" BorderPane.alignment="CENTER">
+                    <items>
+                        <AnchorPane fx:id="canvasPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0">
+                            <children>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                        <Canvas fx:id="canvas" height="650.0" onMouseClicked="#canvasClick" width="586.0" BorderPane.alignment="CENTER" />
+                                    </center>
+                                </BorderPane>
+                                <ToolBar fx:id="statusToolBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" style="-fx-pref-height: 27px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                    <items>
+                                        <Label fx:id="infoShowLabel" wrapText="true" />
+                                        <Label fx:id="timeShowLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" textAlignment="RIGHT" wrapText="true" />
+                                    </items>
+                                </ToolBar>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0">
+                            <children>
+                                <SplitPane fx:id="splitPane2" dividerPositions="0.6461538461538462" layoutX="32.0" layoutY="111.0" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <items>
+                                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0">
+                                            <children>
+                                                <BorderPane fx:id="listViewPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <center>
+                                                        <ListView fx:id="listView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/app.css" BorderPane.alignment="CENTER" />
+                                                    </center>
+                                                    <top>
+                                                        <ToolBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" BorderPane.alignment="CENTER">
+                                                            <items>
+                                                                <Label text="%enginepanle.text" />
+                                                                <ComboBox fx:id="engineComboBox" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="95.0" stylesheets="@../style/combobox.css" />
+                                                                <ComboBox fx:id="threadComboBox" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="60.0" stylesheets="@../style/combobox.css" />
+                                                                <ComboBox fx:id="hashComboBox" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="65.0" stylesheets="@../style/combobox.css" />
+                                                                <Label text="MB" />
+                                                            </items>
+                                                        </ToolBar>
+                                                    </top>
+                                                </BorderPane>
+                                            </children></AnchorPane>
+                                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0">
+                                            <children>
+                                                <TabPane side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <tabs>
+                                                        <Tab text="%gamerecord.text">
+                                                            <content>
+                                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                                    <bottom>
+                                                                        <ToolBar minHeight="-Infinity" minWidth="80.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="100.0" style="-fx-background-insets: 28px;" BorderPane.alignment="CENTER">
+                                                                            <items>
+                                                                                <Button fx:id="manualDeleteButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url('/image/delete.png');" stylesheets="@../style/app.css" text="Button" />
+                                                                                <Button fx:id="manualScoreButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#scoreButtonClick" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url('/image/score.png');" stylesheets="@../style/app.css" text="Button" />
+                                                                                <Button fx:id="manualPlayButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#playButtonClick" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url('/image/play.png');" stylesheets="@../style/app.css" text="Button" />
+                                                                                <Button fx:id="manualDownButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#downwardButtonClick" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url('/image/down-arrow.png');" stylesheets="@../style/app.css" text="Button" />
+                                                                                <Button fx:id="manualUpButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#upwardButtonClick" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url('/image/up-arrow.png');" stylesheets="@../style/app.css" text="Button" />
+                                                                                <Button fx:id="manualFinalButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#finalButtonClick" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url('/image/arrow-double-left.png');" stylesheets="@../style/app.css" text="Button" />
+                                                                                <Button fx:id="manualForwardButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#forwardButtonClick" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url('/image/arrow-left.png');" stylesheets="@../style/app.css" text="Button" />
+                                                                                <Button fx:id="manualBackButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url('/image/arrow-right.png');" stylesheets="@../style/app.css" text="Button" />
+                                                                                <Button fx:id="manualFrontButton" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#frontButtonClick" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url('/image/arrow-double-right.png');" stylesheets="@../style/app.css" text="Button" />
+                                                                            </items>
+                                                                        </ToolBar>
+                                                                    </bottom>
+                                                                    <center>
+                                                                        <SplitPane dividerPositions="0.6" prefHeight="160.0" prefWidth="200.0" stylesheets="@../style/split-pane-one.css" BorderPane.alignment="CENTER">
+                                                                            <items>
+                                                                                <TableView fx:id="recordTable" onMouseClicked="#recordTableClick" style="-fx-background-insets: 100%;" stylesheets="@../style/table.css">
+                                                                                    <columns>
+                                                                                        <TableColumn editable="false" prefWidth="50.0" sortable="false" text="%gamerecord.serial" />
+                                                                                        <TableColumn editable="false" prefWidth="100.0" sortable="false" text="%gamerecord.move" />
+                                                                                        <TableColumn editable="false" prefWidth="60.0" sortable="false" text="%gamerecord.score" />
+                                                                                    </columns>
+                                                                                </TableView>
+                                                                                <SplitPane dividerPositions="0.6" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" stylesheets="@../style/split-pane-zero.css">
+                                                                                    <items>
+                                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                                                            <children>
+                                                                                                <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                    <top>
+                                                                                                        <Label text="%gamerecord.notes" BorderPane.alignment="CENTER_LEFT" />
+                                                                                                    </top>
+                                                                                                    <center>
+                                                                                                        <TextArea fx:id="remarkText" wrapText="true" BorderPane.alignment="CENTER" />
+                                                                                                    </center>
+                                                                                                </BorderPane>
+                                                                                            </children>
+                                                                                            <padding>
+                                                                                                <Insets bottom="1.0" left="4.0" right="4.0" top="4.0" />
+                                                                                            </padding>
+                                                                                        </AnchorPane>
+                                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                                                            <children>
+                                                                                                <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                                                    <top>
+                                                                                                        <Label text="%gamerecord.variation" BorderPane.alignment="CENTER_LEFT" />
+                                                                                                    </top>
+                                                                                                    <center>
+                                                                                                        <ListView fx:id="subRecordTable" stylesheets="@../style/selection.css" BorderPane.alignment="CENTER" />
+                                                                                                    </center>
+                                                                                                </BorderPane>
+                                                                                            </children>
+                                                                                            <padding>
+                                                                                                <Insets bottom="4.0" left="4.0" right="4.0" top="1.0" />
+                                                                                            </padding>
+                                                                                        </AnchorPane>
+                                                                                    </items>
+                                                                                </SplitPane>
+                                                                            </items>
+                                                                        </SplitPane>
+                                                                    </center>
+                                                                </BorderPane>
+                                                            </content>
+                                                        </Tab>
+                                                        <Tab text="%paneltabletext.chart">
+                                                            <content>
+                                                                <BorderPane fx:id="charPane" prefHeight="200.0" prefWidth="200.0" />
+                                                            </content>
+                                                        </Tab>
+                                                        <Tab text="%paneltabletext.bookmove">
+                                                            <content>
+                                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                                    <center>
+                                                                        <TableView fx:id="bookTable" onMouseClicked="#bookTableClick" prefHeight="200.0" prefWidth="200.0" style="-fx-background-insets: 100%;" stylesheets="@../style/table.css" BorderPane.alignment="CENTER">
+                                                                            <columns>
+                                                                                <TableColumn editable="false" prefWidth="75.0" sortable="false" text="%panelbookmove.move" />
+                                                                                <TableColumn editable="false" prefWidth="64.0" sortable="false" text="%panelbookmove.score" />
+                                                                                <TableColumn editable="false" prefWidth="64.0" sortable="false" text="%panelbookmove.winrate" />
+                                                                                <TableColumn editable="false" prefWidth="60.0" sortable="false" text="%panelbookmove.win" />
+                                                                                <TableColumn editable="false" prefWidth="60.0" sortable="false" text="%panelbookmove.draw" />
+                                                                                <TableColumn editable="false" prefWidth="60.0" sortable="false" text="%panelbookmove.loss" />
+                                                                                <TableColumn editable="false" prefWidth="75.0" sortable="false" text="%panelbookmove.remark" />
+                                                                                <TableColumn editable="false" sortable="false" text="%panelbookmove.source" />
+                                                                            </columns>
+                                                                        </TableView>
+                                                                    </center>
+                                                                </BorderPane>
+                                                            </content></Tab>
+                                                    </tabs>
+                                                </TabPane>
+                                            </children></AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+            </center>
+        </BorderPane>
+    </center>
+    <left>
+        <BorderPane fx:id="chessManualPane" prefWidth="256.0" BorderPane.alignment="CENTER">
+            <center>
+                <TreeView fx:id="notationTree" style="-fx-padding: 8 5 8 5;" stylesheets="@../style/app.css" BorderPane.alignment="CENTER" />
+            </center>
+            <top>
+                <ToolBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" BorderPane.alignment="CENTER">
+                    <items>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openChessManualFolder" style="-fx-pref-width: 240; -fx-border-style: solid; -fx-border-color: #C0C0C0; -fx-border-radius: 5px;" stylesheets="@../style/app.css" text="%filemanagedirec.text">
+                            <font>
+                                <Font size="12.0" />
+                            </font>
+                        </Button>
+                    </items>
+                </ToolBar>
+            </top>
+            <bottom>
+                <BorderPane prefHeight="220.0" styleClass="manual-info-pane" BorderPane.alignment="CENTER">
+                    <bottom>
+                        <ToolBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                            <items>
+                                <Label fx:id="manualTitleLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="225.0" />
+                            </items>
+                        </ToolBar>
+                    </bottom>
+                    <center>
+                        <GridPane styleClass="manual-info-pane">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="78.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="162.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label alignment="CENTER" text="%gameinfotext.eventname">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label text="%gameinfotext.location" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label text="%gameinfotext.date" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label text="%gameinfotext.redplaye" GridPane.rowIndex="3">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label text="%gameinfotext.blackplaye" GridPane.rowIndex="4">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="competitionNameText" GridPane.columnIndex="1">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </TextField>
+                                <TextField fx:id="competitionCityText" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </TextField>
+                                <TextField fx:id="competitionDateText" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </TextField>
+                                <TextField fx:id="competitionRedText" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </TextField>
+                                <TextField fx:id="competitionBlackText" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </TextField>
+                            </children>
+                            <BorderPane.margin>
+                                <Insets bottom="18.0" left="8.0" right="18.0" top="12.0" />
+                            </BorderPane.margin>
+                        </GridPane>
+                    </center>
+                </BorderPane>
+            </bottom>
+        </BorderPane>
+    </left>
+</BorderPane>
